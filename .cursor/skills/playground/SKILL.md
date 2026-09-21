@@ -69,6 +69,7 @@ node .cursor/skills/playground/scripts/playground.js launch
 node .cursor/skills/playground/scripts/playground.js launch --pair
 node .cursor/skills/playground/scripts/playground.js stop
 node .cursor/skills/playground/scripts/playground.js stop --port=9001
+node .cursor/skills/playground/scripts/playground.js stop --all
 node .cursor/skills/playground/scripts/playground.js capture --label before
 node .cursor/skills/playground/scripts/playground.js capture --label after --feature=title
 node .cursor/skills/playground/scripts/playground.js compare --before before --after after --feature=title
@@ -99,7 +100,7 @@ Use `--wp` / `--php` only when the change can be version-sensitive. Not a full m
 
 The working tree is mounted live. PHP edits apply on the next request. There is no “previous plugin” left on disk after you edit. Pick one previous:
 
-1. **Live side-by-side (preferred).** `launch --pair`. wordpress.org is `--site=before`, working tree is `--site=after`, on the next two free consecutive ports. `capture --label before --feature=<name>` and `capture --label after --feature=<name>` pick those sites. `compare` diffs the JSON bundles and does not need a live server. Open the URLs from launch output or `runs.json`. `stop` kills both; `stop --port=<port>` kills one.
+1. **Live side-by-side (preferred).** `launch --pair`. wordpress.org is `--site=before`, working tree is `--site=after`, on the next two free consecutive ports. `capture --label before --feature=<name>` and `capture --label after --feature=<name>` pick those sites. `compare` diffs the JSON bundles and does not need a live server. Open the URLs from launch output or `runs.json`. `stop` kills this workspace's runs (live and stale) and leaves other consumers alone. `stop --port=<port>` kills one. `stop --all` stops every run in `runs.json` (all consumers). Use `--all` only when the user asks to purge every workspace.
 2. **This session, one server, not yet edited.** `launch`, `capture --label before --feature=<name>`, edit, `capture --label after --feature=<name>`, `compare`.
 3. **Already edited, or vs gold.** `capture --label after --feature=<name>`, `compare --before baseline --after after --feature=<name>`. Requires `.local/playground/captures/baseline.json` from the same catalog/seed on `latest`. If that file is missing or the catalog changed, say so. Do not capture `before` from the dirty tree and call it previous.
 

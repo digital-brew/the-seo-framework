@@ -74,34 +74,32 @@ $robots_settings = [
 	\do_action( 'the_seo_framework_before_bulk_edit', $post_type, $taxonomy );
 	?>
 	<fieldset class=inline-edit-col-left>
-		<legend class=inline-edit-legend><?php \esc_html_e( 'Visibility SEO Settings', 'autodescription' ); ?></legend>
+		<legend class=inline-edit-legend><?php \esc_html_e( 'Visibility Settings', 'autodescription' ); ?></legend>
 		<div class=inline-edit-col>
-			<div class="inline-edit-group wp-clearfix">
-				<?php
-				$_no_change_i18n       = \__( '&mdash; No Change &mdash;', 'default' );
-				$_default_unknown_i18n = \__( 'Default (unknown)', 'autodescription' );
+			<?php
+			$_no_change_i18n       = \__( '&mdash; No Change &mdash;', 'default' );
+			$_default_unknown_i18n = \__( 'Default (unknown)', 'autodescription' );
 
-				foreach ( $robots_settings as $_setting ) {
-					// This is bad accessibility, but it's exactly as bad as WP is, and we don't want to stray away from their standards.
-					echo '<label class=clear>';
-						printf( '<span class=title>%s</span>', \esc_html( $_setting['label'] ) );
-						// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
-						echo Form::make_single_select_form( [
-							'id'       => $_setting['id'],
-							'name'     => $_setting['name'],
-							'options'  => [
-								'nochange' => $_no_change_i18n,
-								0          => $_default_unknown_i18n,
-								-1         => $_setting['force_on'],
-								1          => $_setting['force_off'],
-							],
-							'selected' => 'nochange',
-						] );
-						// phpcs:enable WordPress.Security.EscapeOutput
-					echo '</label>';
-				}
-				?>
-			</div>
+			foreach ( $robots_settings as $_setting ) {
+				// This is bad accessibility, but it's exactly as bad as WP is, and we don't want to stray away from their standards.
+				echo '<label class=clear>';
+					printf( '<span class=title>%s</span>', \esc_html( $_setting['label'] ) );
+					// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
+					echo Form::make_single_select_form( [
+						'id'       => $_setting['id'],
+						'name'     => $_setting['name'],
+						'options'  => [
+							'nochange' => $_no_change_i18n,
+							0          => $_default_unknown_i18n,
+							-1         => $_setting['force_on'],
+							1          => $_setting['force_off'],
+						],
+						'selected' => 'nochange',
+					] );
+					// phpcs:enable WordPress.Security.EscapeOutput
+				echo '</label>';
+			}
+			?>
 		</div>
 	</fieldset>
 	<?php

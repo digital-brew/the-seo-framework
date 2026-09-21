@@ -471,26 +471,27 @@ switch ( $instance ) :
 			</label>
 		</p>
 		<p>
-			<?php
-			// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
-			echo Form::make_single_select_form( [
-				'id'       => Input::get_field_id( 'homepage_twitter_card_type' ),
-				'class'    => 'tsf-select-block',
-				'name'     => Input::get_field_name( 'homepage_twitter_card_type' ),
-				'label'    => '',
-				'options'  => array_merge(
-					[ '' => \sprintf( $_default_i18n, $tw_card_default ) ],
-					array_combine( $tw_supported_cards, $tw_supported_cards ),
-				),
-				'selected' => Data\Plugin::get_option( 'homepage_twitter_card_type' ),
-				'data'     => [
-					'defaultI18n'   => $_default_i18n,
-					'defaultValue'  => $tw_card_default,
-					'defaultLocked' => (bool) $custom_tw_card,
-				],
-			] );
-			// phpcs:enable WordPress.Security.EscapeOutput
-			?>
+			<div class=tsf-select-block>
+				<?php
+				// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
+				echo Form::make_single_select_form( [
+					'id'       => Input::get_field_id( 'homepage_twitter_card_type' ),
+					'name'     => Input::get_field_name( 'homepage_twitter_card_type' ),
+					'label'    => '',
+					'options'  => array_merge(
+						[ '' => \sprintf( $_default_i18n, $tw_card_default ) ],
+						array_combine( $tw_supported_cards, $tw_supported_cards ),
+					),
+					'selected' => Data\Plugin::get_option( 'homepage_twitter_card_type' ),
+					'data'     => [
+						'defaultI18n'   => $_default_i18n,
+						'defaultValue'  => $tw_card_default,
+						'defaultLocked' => (bool) $custom_tw_card,
+					],
+				] );
+				// phpcs:enable WordPress.Security.EscapeOutput
+				?>
+			</div>
 		</p>
 		<?php
 		if ( $custom_tw_card ) {

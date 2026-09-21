@@ -219,7 +219,7 @@ If you don't want a page in the sitemap, consider enabling the `noindex` option 
 If the link shouldn't be in the sitemap because it's meant for structural reasons, then inform the plugin or theme author that created them.
 You should tell the author to check out the "`public` and `rewrite` post type arguments." The plugin or theme author should know what that means.
 
-In the meantime, you can disable SEO for the unwanted entries via the "General SEO Settings" under "Exclusions."
+In the meantime, you can disable SEO for the unwanted entries via the "General Settings" under "Exclusions."
 
 = Why aren't focus keywords included? =
 
@@ -277,6 +277,10 @@ You can also output these breadcrumbs visually in your theme by [using a shortco
 			* This does not affect your site's language or any other functionality; only Open Graph locale output is affected to conform to Facebook's supported locales.
 		* **The locales are also no longer supported:** Akan, Aymara, Sorani Kurdish, Cherokee, English (India, Pirate, Upside Down), Leet Speak, Classical Greek, Latin, Ndebele, Chewa, Quechua, Northern Sámi, Klingon, Yiddish, Zazaki.
 		* **These locales are now supported, although not by WordPress:** Haitian Creole, Inupiaq, Inuktitut.
+	* **Settings headings:**
+		* "General SEO settings" is now "General Settings" on the SEO settings screen.
+		* "Social SEO Settings" is now "Social Settings" on term-edit screens.
+		* "Visibility SEO Settings" is now "Visibility Settings" on term-edit, Quick Edit, and Bulk Edit screens.
 * **Improved:**
 	* **Tooltips:**
 		* Tooltips now aim to be a little wider to ease reading.
@@ -323,11 +327,17 @@ You can also output these breadcrumbs visually in your theme by [using a shortco
 	* Resolved an issue where the generated archive title prefix briefly flickered when typing in Post Type Archive Settings meta title fields.
 	* Resolved an issue where the SEO Bar treated a homepage title or description of `0` as empty, so it attributed the value to the Edit Page screen instead of SEO Settings, and did not recognize a post excerpt of `0` as excerpt content.
 	* Resolved an issue where social image URLs with non-ASCII characters in the filename were not percent-encoded, causing Facebook to ignore the `og:image` tag.
+	* Resolved an issue where Bulk Edit visibility selects wrapped below their labels instead of sitting beside them.
 * **Notes:**
 	* WordPress 6.7 is now required, from 6.0. This allowed us to drop some legacy workarounds.
 		* Since WordPress doesn't adhere to Semantic Versioning (SemVer), this is actually a minor bump -- so we didn't bother highlighting it.
 * **Other:**
 	* Twitter Card help links now point to our [Knowledge Base](https://kb.theseoframework.com/?p=451#card-types) because X removed the original documentation. The explanation on how this works has also been more explicitely defined.
+
+## For translators
+
+* **Added:**
+	* New sentences have been added.
 
 ## For developers
 
@@ -378,6 +388,9 @@ You can also output these breadcrumbs visually in your theme by [using a shortco
 		* Method `The_SEO_Framework\Sitemap\Registry::output_stylesheet()` (`tsf()->sitemap()->registry()->output_stylesheet()`) now accepts `$sitemap_id` (`xsl-stylesheet` or `css`) and outputs the CSS when that ID is `css`.
 		* Method `The_SEO_Framework\Sitemap\Registry::output_sitemap_header()` (`tsf()->sitemap()->registry()->output_sitemap_header()`) now also emits a CSS xml-stylesheet processing instruction after the XSL one.
 		* Function `tsf_breadcrumb()` now omits the `<style>` element when `the_seo_framework_breadcrumb_shortcode_css` returns no rules.
+		* Method `The_SEO_Framework\Admin\Settings\Layout\Form::make_single_select_form()` (`tsf()->admin()->layout()->form()->make_single_select_form()`):
+			1. No longer wraps the select in a `div`.
+			2. Removed the `class` argument.
 	* **Improved:**
 		* Method `The_SEO_Framework\Meta\Open_Graph::get_locale()` (`tsf()->open_graph()->get_locale()`) now derives the Open Graph locale from `The_SEO_Framework\Data\Blog::get_language()` (`tsf()->data()->blog()->get_language()`) instead of calling `get_locale()` directly. Because `get_language()` is memoized, repeated locale filter callbacks on multilingual sites (Polylang, WPML) are avoided.
 		* Method `The_SEO_Framework\Helper\Format\Arrays::array_diff_assoc_recursive()` (`tsf()->format()->arrays()->array_diff_assoc_recursive()`) now uses `array_reduce()` instead of a while-loop for 1.9x faster execution and better readability.

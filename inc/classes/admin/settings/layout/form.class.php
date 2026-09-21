@@ -50,12 +50,13 @@ class Form {
 	 *
 	 * @since 4.1.4
 	 * @since 5.0.0 'default' is now synonymous to 'selected'. 'default' is no longer promoted.
+	 * @since 5.1.5 1. No longer wraps the select in a `div`.
+	 *              2. Removed the `class` argument.
 	 *
 	 * @param array $args {
 	 *     The select field creation arguments.
 	 *
 	 *     @type string     $id       The select field ID.
-	 *     @type string     $class    The div wrapper class.
 	 *     @type string     $name     The option name.
 	 *     @type int|string $selected The selected option value.
 	 *     @type array      $options  The select option values : { value => name }
@@ -71,7 +72,6 @@ class Form {
 
 		$args += [
 			'id'          => '',
-			'class'       => '',
 			'name'        => '',
 			'selected'    => $args['default'] ?? '',
 			'options'     => [],
@@ -104,25 +104,25 @@ class Form {
 		);
 
 		return vsprintf(
-			\sprintf(
-				'<div class="%s">%s</div>',
-				\esc_attr( $args['class'] ),
-				\is_rtl() ? '%2$s%1$s%3$s' : '%1$s%2$s%3$s',
-			),
+			\is_rtl() ? '%2$s%1$s%3$s' : '%1$s%2$s%3$s',
 			[
-				$args['label'] ? \sprintf(
-					'<label for="%s">%s</label> ', // superfluous space!
-					Escape::option_name_attribute( $args['id'] ),
-					\sprintf(
-						$args['labelstrong'] ? '<strong>%s</strong>' : '%s',
-						\esc_html( $args['label'] ),
-					),
-				) : '',
-				$args['info'] ? HTML::make_info(
-					$args['info'][0],
-					$args['info'][1] ?? '',
-					false,
-				) . ' ' : '',
+				$args['label']
+					? \sprintf(
+						'<label for="%s">%s</label> ', // superfluous space!
+						Escape::option_name_attribute( $args['id'] ),
+						\sprintf(
+							$args['labelstrong'] ? '<strong>%s</strong>' : '%s',
+							\esc_html( $args['label'] ),
+						),
+					)
+					: '',
+				$args['info']
+					? HTML::make_info(
+						$args['info'][0],
+						$args['info'][1] ?? '',
+						false,
+					) . ' '
+					: '',
 				vsprintf(
 					'<select id="%s" name="%s"%s %s>%s</select>',
 					[

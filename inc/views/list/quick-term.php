@@ -114,7 +114,7 @@ $robots_settings = [
 		</div>
 	</fieldset>
 	<fieldset class=inline-edit-col-full>
-		<legend class=inline-edit-legend><?php \esc_html_e( 'Visibility SEO Settings', 'autodescription' ); ?></legend>
+		<legend class=inline-edit-legend><?php \esc_html_e( 'Visibility Settings', 'autodescription' ); ?></legend>
 		<div class=inline-edit-col>
 			<label>
 				<span class=title><?php \esc_html_e( 'Canonical URL', 'autodescription' ); ?></span>

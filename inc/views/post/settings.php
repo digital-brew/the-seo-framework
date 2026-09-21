@@ -410,25 +410,26 @@ switch ( $instance ) :
 				</div>
 			</div>
 			<div class="tsf-flex-setting-input tsf-flex">
-				<?php
-				/* translators: %s = default option value */
-				$_default_i18n      = \__( 'Default (%s)', 'autodescription' );
-				$tw_supported_cards = Meta\Twitter::get_supported_cards();
+				<div class=tsf-select-block>
+					<?php
+					/* translators: %s = default option value */
+					$_default_i18n      = \__( 'Default (%s)', 'autodescription' );
+					$tw_supported_cards = Meta\Twitter::get_supported_cards();
 
-				// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
-				echo Form::make_single_select_form( [
-					'id'       => 'autodescription_twitter_card_type',
-					'class'    => 'tsf-select-block',
-					'name'     => 'autodescription[_tsf_twitter_card_type]',
-					'label'    => '',
-					'options'  => array_merge(
-						[ '' => \sprintf( $_default_i18n, $_twitter_card ) ],
-						array_combine( $tw_supported_cards, $tw_supported_cards ),
-					),
-					'selected' => $meta['_tsf_twitter_card_type'],
-				] );
-				// phpcs:enable WordPress.Security.EscapeOutput
-				?>
+					// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
+					echo Form::make_single_select_form( [
+						'id'       => 'autodescription_twitter_card_type',
+						'name'     => 'autodescription[_tsf_twitter_card_type]',
+						'label'    => '',
+						'options'  => array_merge(
+							[ '' => \sprintf( $_default_i18n, $_twitter_card ) ],
+							array_combine( $tw_supported_cards, $tw_supported_cards ),
+						),
+						'selected' => $meta['_tsf_twitter_card_type'],
+					] );
+					// phpcs:enable WordPress.Security.EscapeOutput
+					?>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -663,29 +664,30 @@ switch ( $instance ) :
 							</div>
 						</div>
 						<div class="tsf-flex-setting-input tsf-flex">
-						<?php
-							/* translators: %s = default option value */
-							$_default_i18n = \__( 'Default (%s)', 'autodescription' );
+							<div class=tsf-select-block>
+								<?php
+								/* translators: %s = default option value */
+								$_default_i18n = \__( 'Default (%s)', 'autodescription' );
 
-							// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
-							echo Form::make_single_select_form( [
-								'id'       => $_s['id'],
-								'class'    => 'tsf-select-block',
-								'name'     => \sprintf( 'autodescription[%s]', $_s['option'] ),
-								'label'    => '',
-								'options'  => [
-									0  => \sprintf( $_default_i18n, $_s['_default'] ),
-									-1 => $_s['force_on'],
-									1  => $_s['force_off'],
-								],
-								'selected' => Data\Plugin\Post::get_meta_item( $_s['option'] ),
-								'data'     => [
-									'defaultUnprotected' => $_s['_default'],
-									'defaultI18n'        => $_default_i18n,
-								],
-							] );
-							// phpcs:enable WordPress.Security.EscapeOutput
-						?>
+								// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
+								echo Form::make_single_select_form( [
+									'id'       => $_s['id'],
+									'name'     => \sprintf( 'autodescription[%s]', $_s['option'] ),
+									'label'    => '',
+									'options'  => [
+										0  => \sprintf( $_default_i18n, $_s['_default'] ),
+										-1 => $_s['force_on'],
+										1  => $_s['force_off'],
+									],
+									'selected' => Data\Plugin\Post::get_meta_item( $_s['option'] ),
+									'data'     => [
+										'defaultUnprotected' => $_s['_default'],
+										'defaultI18n'        => $_default_i18n,
+									],
+								] );
+								// phpcs:enable WordPress.Security.EscapeOutput
+								?>
+							</div>
 						</div>
 					</div>
 					<?php

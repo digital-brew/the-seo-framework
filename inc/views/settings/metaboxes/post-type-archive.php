@@ -402,24 +402,25 @@ switch ( $instance ) :
 			</label>
 		</p>
 		<p>
-			<?php
-			// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
-			echo Form::make_single_select_form( [
-				'id'       => Input::get_field_id( $args['options']['tw_card_type'] ),
-				'class'    => 'tsf-select-block',
-				'name'     => Input::get_field_name( $args['options']['tw_card_type'] ),
-				'label'    => '',
-				'options'  => array_merge(
-					[ '' => \sprintf( $_default_i18n, Meta\Twitter::get_generated_card_type() ) ],
-					array_combine( $tw_supported_cards, $tw_supported_cards ),
-				),
-				'selected' => Data\Plugin\PTA::get_meta_item( 'tw_card_type', $args['post_type'] ),
-				'data'     => [
-					'defaultI18n' => $_default_i18n,
-				],
-			] );
-			// phpcs:enable WordPress.Security.EscapeOutput
-			?>
+			<div class=tsf-select-block>
+				<?php
+				// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
+				echo Form::make_single_select_form( [
+					'id'       => Input::get_field_id( $args['options']['tw_card_type'] ),
+					'name'     => Input::get_field_name( $args['options']['tw_card_type'] ),
+					'label'    => '',
+					'options'  => array_merge(
+						[ '' => \sprintf( $_default_i18n, Meta\Twitter::get_generated_card_type() ) ],
+						array_combine( $tw_supported_cards, $tw_supported_cards ),
+					),
+					'selected' => Data\Plugin\PTA::get_meta_item( 'tw_card_type', $args['post_type'] ),
+					'data'     => [
+						'defaultI18n' => $_default_i18n,
+					],
+				] );
+				// phpcs:enable WordPress.Security.EscapeOutput
+				?>
+			</div>
 		</p>
 
 		<hr>
@@ -544,24 +545,30 @@ switch ( $instance ) :
 				),
 				true,
 			);
-			// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
-			echo Form::make_single_select_form( [
-				'id'       => Input::get_field_id( $args['options'][ $_r_type ] ),
-				'class'    => 'tsf-select-block',
-				'name'     => Input::get_field_name( $args['options'][ $_r_type ] ),
-				'label'    => '',
-				'options'  => [
-					0  => $_default_unknown_i18n,
-					-1 => $_rs['force_on'],
-					1  => $_rs['force_off'],
-				],
-				'selected' => $_rs['_value'],
-				'data'     => [
-					'defaultI18n' => $_default_i18n,
-					'defaultOn'   => $_rs['_defaultOn'],
-					'defaultOff'  => $_rs['_defaultOff'],
-				],
-			] );
+			?>
+			<div class=tsf-select-block>
+				<?php
+				// phpcs:disable WordPress.Security.EscapeOutput -- make_single_select_form() escapes.
+				echo Form::make_single_select_form( [
+					'id'       => Input::get_field_id( $args['options'][ $_r_type ] ),
+					'name'     => Input::get_field_name( $args['options'][ $_r_type ] ),
+					'label'    => '',
+					'options'  => [
+						0  => $_default_unknown_i18n,
+						-1 => $_rs['force_on'],
+						1  => $_rs['force_off'],
+					],
+					'selected' => $_rs['_value'],
+					'data'     => [
+						'defaultI18n' => $_default_i18n,
+						'defaultOn'   => $_rs['_defaultOn'],
+						'defaultOff'  => $_rs['_defaultOff'],
+					],
+				] );
+				// phpcs:enable WordPress.Security.EscapeOutput
+				?>
+			</div>
+			<?php
 		}
 		?>
 		<hr>

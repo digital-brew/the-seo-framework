@@ -86,6 +86,9 @@ function main() {
 	if ( ! hasFlag( extra, 'root' ) )
 		extra.push( '--root', ROOT );
 
+	if ( ! hasFlag( extra, 'workspace' ) )
+		extra.push( '--workspace', path.basename( ROOT ) );
+
 	if ( ! hasFlag( extra, 'plugin-json' ) )
 		extra.push( '--plugin-json', PLUGIN_JSON );
 
