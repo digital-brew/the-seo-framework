@@ -120,13 +120,17 @@ if ( Data\Plugin::get_option( 'sitemap_logo' ) ) {
 		$logo_height = (int) ( $_src[2] ?? 29 ); // Magic number "SITEMAP_LOGO_PX"
 		$logo_size   = "{$logo_width}px {$logo_height}px";
 		$logo_pos    = "calc(-{$logo_width}px - 1.4rem) 0";
-		$logo_image  = 'url(' . Escape::css_content( \esc_url(
-			$_src[0],
-			[ 'https', 'http' ],
-		) ) . ')';
+		$logo_image  = \sprintf(
+			'url(%s)',
+			Escape::css_content( \esc_url(
+				$_src[0],
+				[ 'https', 'http' ],
+			) ),
+		);
 
-		$title_extra    = "{$logo_width}px + 1.4rem"; // 1.4rem: XSL `h1 img` margin-inline-end
-		$title_pad_left = "max(calc(2rem + {$title_extra}), calc((100% - {$table_min_width}px) / 2 + {$title_extra}))";
+		// 1.4rem: XSL `h1 img` margin-inline-end.
+		$logo_clearance = "{$logo_width}px + 1.4rem";
+		$title_pad_left = "max(calc(2rem + {$logo_clearance}), calc((100% - {$table_min_width}px) / 2 + {$logo_clearance}))";
 
 		if ( 'rtl' === $direction ) {
 			$logo_pos = "right calc(-{$logo_width}px - 1.4rem) top 0";

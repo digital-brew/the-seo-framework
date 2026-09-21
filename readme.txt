@@ -299,6 +299,8 @@ You can also output these breadcrumbs visually in your theme by [using a shortco
 		* The Sitemap Styling Settings now link to the knowledge base article about sitemap styles.
 		* When a multilingual plugin is detected, language sitemap links are now listed under "View translated sitemaps," using the language name as the link text. A note that each language has its own sitemap is shown with those links.
 		* Toggling the optimized sitemap now warns that the sitemap links still reflect the saved setting until you save.
+	* **Social images:**
+		* The social image preview no longer sends a Referer header when fetching the URL. This matches our policy of applying `rel=noreferrer` on external links.
 	* **Head tags:**
 		* The metatag generator now always outputs in HTML5 syntax, dropping XHTML support.
 	* **Descriptions:**
@@ -369,6 +371,7 @@ You can also output these breadcrumbs visually in your theme by [using a shortco
 	* **Removed:**
 		* Pool `tsf()->data()->plugin()->filter()`. Its namesake class is private, and this pool pointed at a class that never existed.
 	* **Changed:**
+		* Method `The_SEO_Framework\Admin\SEOBar\Builder::generate_bar()` (`tsf()->admin()->seobar()->generate_bar()`) now strips HTML tags from tooltip title and reason. The title and reason were already considered trusted (hardcoded input), but this extra hardening mitigates potential oversights from custom integrations.
 		* Methods `The_SEO_Framework\Helper\Taxonomy::get_post_types()` (`tsf()->taxonomy()->get_post_types()`), `The_SEO_Framework\Helper\Taxonomy::get_all_public()` (`tsf()->taxonomy()->get_all_public()`), `The_SEO_Framework\Helper\Post_Type::get_all_hierarchical()` (`tsf()->post_type()->get_all_hierarchical()`), and `The_SEO_Framework\Helper\Post_Type::get_all_nonhierarchical()` (`tsf()->post_type()->get_all_nonhierarchical()`) now reset the index keys of the return value so JSON encoding returns a list instead of an object.
 		* Method `The_SEO_Framework\Helper\Format\Minify::css()` (`tsf()->format()->minify()->css()`):
 			1. No longer minifies `)` followed by a space, to prevent breaking CSS4 selectors like `:not(a) b`

@@ -256,6 +256,7 @@ class Builder {
 	 * Generates SEO Bar single HTML block content.
 	 *
 	 * @since 4.0.0
+	 * @since 5.1.5 Now strips HTML tags from title and reason before interpolating them into the tooltip HTML and ARIA text.
 	 * @generator
 	 * FIXME? The data herein is obtained via `builders/seobar-{type}.php`. If they escape their cache before we do here, it'd be much quicker.
 	 *        Provided, however, that there are fewer items cached (130~137) than SEOBar blocks outputted (240 on most sites).
@@ -322,10 +323,13 @@ class Builder {
 				$symbol = $item['symbol'];
 			}
 
+			$title  = \wp_strip_all_tags( $item['title'] );
+			$reason = \wp_strip_all_tags( $item['reason'] );
+
 			$html = \sprintf(
 				'<strong>%s:</strong> %s<br>%s',
-				$item['title'],
-				$item['reason'],
+				$title,
+				$reason,
 				\sprintf(
 					'<ol>%s</ol>',
 					implode(
@@ -341,14 +345,19 @@ class Builder {
 			if ( $single_assessment ) {
 				$assessments[] = reset( $item['assess'] );
 			} else foreach ( $item['assess'] as $text ) {
-				// an ++$i loop instead of count saves 6ns but adds 2ns for single assessment loops
-				$assessments[] = \sprintf( $gettext['enum'], \count( $assessments ) + 1, $text );
+				// An ++$i loop instead of count saves 6ns but adds 2ns for the single assessment above.
+				// Any other workaround adds more jumps.
+				$assessments[] = \sprintf(
+					$gettext['enum'],
+					\count( $assessments ) + 1,
+					$text,
+				);
 			}
 
 			$aria = \sprintf(
 				$gettext['aria'],
-				$item['title'],
-				$item['reason'],
+				$title,
+				$reason,
 				\sprintf(
 					$gettext['list'],
 					$single_assessment ? $gettext['assessment'] : $gettext['assessments'],
